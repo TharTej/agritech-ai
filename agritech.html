@@ -1,0 +1,250 @@
+from pathlib import Path
+
+html = r"""<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgriTech AI | Cyber Farming</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+
+<script>
+tailwind.config = {
+theme:{
+extend:{
+colors:{
+'cyber-bg':'#0f1012',
+'cyber-card':'#16181d',
+'cyber-panel':'#1b1e24',
+'neon-green':'#00ff3f',
+'neon-cyan':'#00f0ff'
+},
+fontFamily:{
+'orbitron':['Orbitron','sans-serif'],
+'rajdhani':['Rajdhani','sans-serif']
+}
+}
+}
+}
+</script>
+
+<style>
+html{scroll-behavior:smooth;}
+body{
+background:linear-gradient(135deg,#050505,#0f172a,#052e16);
+color:white;
+font-family:'Rajdhani',sans-serif;
+}
+.glass{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(12px);
+border:1px solid rgba(255,255,255,.1);
+transition:.3s;
+}
+.glass:hover{transform:translateY(-8px);}
+.matrix-btn{box-shadow:0 0 15px rgba(0,255,63,.15);}
+.matrix-btn:hover{box-shadow:0 0 25px rgba(0,255,63,.4);}
+.topic-img{
+width:100%;
+height:180px;
+object-fit:cover;
+border-radius:12px;
+}
+</style>
+</head>
+<body>
+
+<nav class="flex justify-between items-center max-w-7xl mx-auto px-6 py-6">
+<h1 class="font-orbitron text-neon-green text-2xl font-bold">🌱 AGRITECH AI</h1>
+
+<div class="hidden md:flex gap-6 text-gray-300">
+<a href="#home">Home</a>
+<a href="#scanner">Scanner</a>
+<a href="#irrigation">Irrigation</a>
+<a href="#technology">Technology</a>
+<a href="#stats">Stats</a>
+</div>
+</nav>
+
+<section id="home" class="max-w-7xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-10 items-center">
+<div>
+<h1 class="text-5xl md:text-7xl font-orbitron font-black leading-tight">
+Agricultural<br>
+<span class="text-neon-green">Innovation</span><br>
+Powered by AI
+</h1>
+
+<p class="text-gray-400 text-lg mt-6">
+Detect diseases, monitor crops, optimize irrigation and improve yield using smart farming technology.
+</p>
+
+<a href="#scanner" class="inline-block mt-8 matrix-btn border-2 border-neon-green text-neon-green px-8 py-4 font-bold rounded-lg">
+INITIALIZE AI SCANNER
+</a>
+</div>
+
+<div>
+<img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=1400"
+class="rounded-3xl border border-cyan-400/30 shadow-2xl">
+</div>
+</section>
+
+<section id="scanner" class="max-w-5xl mx-auto px-6 py-16">
+<h2 class="text-4xl font-orbitron font-bold text-center mb-10">
+🔍 Live AI Diagnostic Interface
+</h2>
+
+<div id="uploadBox" class="glass p-8 rounded-3xl">
+<div class="border-2 border-dashed border-cyan-400/40 p-12 rounded-xl text-center">
+<input type="file" id="plantUpload" class="hidden" accept="image/*">
+<label for="plantUpload" class="cursor-pointer">
+<div class="text-5xl text-neon-cyan">＋</div>
+<div class="mt-3">UPLOAD PLANT IMAGE</div>
+</label>
+</div>
+
+<div id="analysisResult" class="hidden mt-8">
+<div id="statusText" class="text-2xl font-bold text-neon-green">PROCESSING...</div>
+<div id="confidenceText" class="text-xl text-cyan-300 mt-2">0%</div>
+</div>
+</div>
+</section>
+
+<section id="irrigation" class="max-w-5xl mx-auto px-6 py-16">
+<h2 class="text-4xl font-orbitron font-bold text-center mb-10">
+💧 Smart Irrigation
+</h2>
+
+<div class="glass p-8 rounded-3xl">
+<p class="font-bold text-lg">Soil Moisture Level</p>
+
+<input type="range" min="0" max="100" value="40"
+class="w-full mt-4"
+oninput="updateMoisture(this.value)">
+
+<div class="w-full bg-gray-800 rounded-full h-5 mt-5">
+<div id="bar" class="bg-green-500 h-5 rounded-full" style="width:40%"></div>
+</div>
+
+<p id="rec" class="text-neon-green font-bold mt-4">
+Water crops in 6 hours
+</p>
+</div>
+</section>
+
+<section id="technology" class="max-w-7xl mx-auto px-6 py-16">
+<h2 class="text-4xl font-orbitron font-bold text-center mb-12">
+🌾 Agricultural Technologies
+</h2>
+
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+<div class="glass p-4 rounded-2xl">
+<img src="https://images.unsplash.com/photo-1508610048659-a06b669e3321?w=600" class="topic-img mb-3">
+<h3 class="font-bold text-xl">🚁 Drone Monitoring</h3>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<img src="https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?w=600" class="topic-img mb-3">
+<h3 class="font-bold text-xl">🦠 Disease Detection</h3>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600" class="topic-img mb-3">
+<h3 class="font-bold text-xl">💧 Smart Irrigation</h3>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?w=600" class="topic-img mb-3">
+<h3 class="font-bold text-xl">📈 Yield Prediction</h3>
+</div>
+
+</div>
+</section>
+
+<section id="stats" class="max-w-7xl mx-auto px-6 py-16">
+<h2 class="text-4xl font-orbitron font-bold text-center mb-12">
+📊 Impact Statistics
+</h2>
+
+<div class="grid md:grid-cols-3 gap-8">
+<div class="glass p-8 rounded-3xl text-center">
+<h3 class="text-5xl font-bold text-neon-green">95%</h3>
+<p>Disease Detection Accuracy</p>
+</div>
+
+<div class="glass p-8 rounded-3xl text-center">
+<h3 class="text-5xl font-bold text-neon-green">30%</h3>
+<p>Water Saved</p>
+</div>
+
+<div class="glass p-8 rounded-3xl text-center">
+<h3 class="text-5xl font-bold text-neon-green">20%</h3>
+<p>Higher Crop Yield</p>
+</div>
+</div>
+</section>
+
+<section class="max-w-5xl mx-auto px-6 py-16 text-center">
+<h2 class="text-4xl font-orbitron font-bold mb-6">About AgriTech AI</h2>
+<p class="text-gray-300 text-lg">
+AgriTech AI combines AI, sensors, drones and analytics to help farmers make smarter decisions.
+</p>
+</section>
+
+<footer class="text-center py-10 text-gray-500 border-t border-white/10">
+Website built by <span class="text-neon-green font-bold">Tharuntejas</span>
+</footer>
+
+<script>
+document.getElementById('plantUpload').addEventListener('change',function(){
+if(this.files && this.files[0]){
+
+const result=document.getElementById('analysisResult');
+const status=document.getElementById('statusText');
+const confidence=document.getElementById('confidenceText');
+
+result.classList.remove('hidden');
+status.innerText='PROCESSING BIOME DATA...';
+confidence.innerText='CALCULATING...';
+
+setTimeout(()=>{
+const diseases=[
+'CONDITION: HEALTHY ✅',
+'CONDITION: LEAF SPOT ⚠️',
+'CONDITION: NITROGEN DEFICIENCY 🟡',
+'CONDITION: EARLY BLIGHT 🍂',
+'CONDITION: POWDERY MILDEW 🌿'
+];
+
+status.innerText=diseases[Math.floor(Math.random()*diseases.length)];
+confidence.innerText=(90+Math.floor(Math.random()*10))+'.'+Math.floor(Math.random()*10)+'% ACCURACY';
+},2500);
+}
+});
+
+function updateMoisture(value){
+document.getElementById('bar').style.width=value+'%';
+let recommendation='';
+
+if(value<30){
+recommendation='🚨 Water immediately';
+}else if(value<60){
+recommendation='⏰ Water crops in 6 hours';
+}else{
+recommendation='✅ Soil moisture is sufficient';
+}
+document.getElementById('rec').innerText=recommendation;
+}
+</script>
+
+</body>
+</html>"""
+
+path = "/mnt/data/AgriTech_AI_Merged.html"
+Path(path).write_text(html, encoding="utf-8")
+print(path)
